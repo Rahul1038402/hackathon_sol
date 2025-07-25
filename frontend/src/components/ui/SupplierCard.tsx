@@ -1,0 +1,7 @@
+import React from 'react';
+import { MapPin, Store, Shield as ShieldIcon, Star as StarIcon } from 'lucide-react';
+import type { SupplierCardProps } from '../../types';
+
+export const SupplierCard: React.FC<SupplierCardProps> = ({ supplier }) => (
+  <div className="bg-white rounded-lg shadow-sm p-4"><div className="flex items-start space-x-4 mb-3"><div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0"><Store className="w-6 h-6 text-green-600" /></div><div className="flex-1"><div className="flex items-center space-x-2"><h4 className="font-semibold">{supplier.name}</h4>{supplier.verified && <ShieldIcon className="w-4 h-4 text-green-600" />}</div><div className="flex items-center space-x-2 text-sm text-gray-600 mt-1"><MapPin className="w-4 h-4" /><span>{supplier.location}</span><span>•</span><span>{supplier.distance} km</span></div></div></div><div className="flex items-center justify-between border-t pt-3"><div className="flex items-center space-x-4"><div className="flex items-center space-x-1"><StarIcon className="w-4 h-4 text-yellow-400 fill-current" /><span className="text-sm font-medium">{supplier.rating}</span></div><div className="text-sm text-gray-600">{supplier.orders} orders</div></div><button className="text-green-600 text-sm font-medium hover:underline">View Products</button></div></div>
+);
