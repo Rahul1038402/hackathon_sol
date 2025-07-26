@@ -1,52 +1,297 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Store, User as UserIcon, ArrowLeft, Eye, EyeOff } from 'lucide-react';
-import type { KYCStatusProps } from '../types';
+import './LoginScreen.css';
 
 interface LoginScreenProps {
   userType: string;
-  setUserType: (type: string) => void;
+  setUserType: (type: 'vendor' | 'supplier' | '') => void;
   setCurrentScreen: (screen: string) => void;
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ userType, setUserType, setCurrentScreen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({ phone: '', password: '' });
+  const [errors, setErrors] = useState({ phone: '', password: '' });
+  const [isFormValid, setIsFormValid] = useState(false);
+  const textRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const phoneInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const lightRef = useRef<HTMLDivElement>(null);
+  const lastFocusedFieldRef = useRef<'phone' | 'password' | null>(null);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(`Logging in as ${userType} with`, loginData);
-    setCurrentScreen(`${userType}-dashboard`);
+    if (isFormValid) {
+      setCurrentScreen(`${userType}-dashboard`);
+    }
   };
 
+  useEffect(() => {
+    const phoneValid = /^\d{10}$/.test(loginData.phone);
+    const passwordValid = loginData.password.length >= 10;
+    
+    setErrors({
+      phone: phoneValid || !loginData.phone ? '' : 'Phone must be 10 digits',
+      password: passwordValid || !loginData.password ? '' : 'Password must be at least 10 characters'
+    });
+    
+    setIsFormValid(phoneValid && passwordValid);
+  }, [loginData.phone, loginData.password]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    if (name === 'phone') {
+      const numericValue = value.replace(/\D/g, '').slice(0, 10);
+      setLoginData(prev => ({ ...prev, phone: numericValue }));
+    } else {
+      setLoginData(prev => ({ ...prev, password: value }));
+    }
+  };
+
+  const updateShadow = () => {
+    if (!textRef.current || !lightRef.current || !containerRef.current) return;
+
+    const shadowConfig = {
+      layers: 30,
+      falloff: 1.0,
+      distance: 1.5,
+      color: { r: 255, g: 255, b: 255, a: 0.5 },
+      blur: 27
+    };
+
+    // Set fixed light position (top-left area)
+    const fixedLightX = containerRef.current.offsetWidth * 0.3;
+    const fixedLightY = containerRef.current.offsetHeight * 0;
+    
+    lightRef.current.style.left = `${fixedLightX}px`;
+    lightRef.current.style.top = `${fixedLightY}px`;
+
+    // Calculate distance from light to text center
+    const textRect = textRef.current.getBoundingClientRect();
+    const containerRect = containerRef.current.getBoundingClientRect();
+    
+    const textCenterX = textRect.left - containerRect.left + textRect.width / 2;
+    const textCenterY = textRect.top - containerRect.top + textRect.height / 2;
+    
+    const distanceX = fixedLightX - textCenterX;
+    const distanceY = fixedLightY - textCenterY;
+
+    // Generate multi-layer shadow
+    let newShadow = '';
+    for (let i = 0; i < shadowConfig.layers; i++) {
+      const progress = i / shadowConfig.layers;
+      const shadowX = -distanceX * progress * shadowConfig.distance;
+      const shadowY = -distanceY * progress * shadowConfig.distance;
+      const opacity = Math.pow(1 - progress, shadowConfig.falloff);
+
+      newShadow += (newShadow ? ',' : '') +
+        `${shadowX}px ${shadowY}px ${shadowConfig.blur}px rgba(${
+          shadowConfig.color.r}, ${shadowConfig.color.g}, ${
+          shadowConfig.color.b}, ${opacity})`;
+    }
+    
+    textRef.current.style.textShadow = newShadow;
+  };
+
+  useEffect(() => {
+    updateShadow();
+    window.addEventListener('resize', updateShadow);
+    return () => window.removeEventListener('resize', updateShadow);
+  }, []);
+
+  // Restore shadow when returning from form
+  useEffect(() => {
+    if (!userType) {
+      setTimeout(updateShadow, 10); // Small delay to ensure DOM is ready
+    }
+  }, [userType]);
+
   const UserTypeSelection = () => (
-    <div>
-      <h2 className="text-xl font-semibold text-center mb-6">Choose Your Role</h2>
-      <div className="space-y-4">
-        <button onClick={() => setUserType('vendor')} className="w-full text-left p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all focus:outline-none focus:ring-2 focus:ring-green-500">
-          <div className="flex items-center"><UserIcon className="w-12 h-12 text-green-600 mr-4" /><div><h3 className="font-semibold text-lg">Street Vendor</h3><p className="text-gray-600 text-sm">Buy fresh supplies for your business</p></div></div>
+    <div className="selection-container">
+      {/* Light source element (hidden but used for calculations) */}
+      <div ref={lightRef} id="light" className="light-source"></div>
+      
+      <div ref={textRef} className="main-title">
+        Vendor Setu
+      </div>
+      <div className="role-title">
+        <h2>Choose Your Role</h2>
+      </div>
+      <div className="button-container">
+        <button 
+          onClick={() => setUserType('vendor')} 
+          className="glass-card"
+        >
+          <div className="glass-effect"></div>
+          <div className="glass-tint"></div>
+          <div className="glass-shine"></div>
+          <div className="glass-content">
+            <div className="glass-text">
+              <UserIcon className="icon" /> Vendor
+            </div>
+            <div className="glass-description">
+              Buy fresh supplies for your business
+            </div>
+          </div>
         </button>
-        <button onClick={() => setUserType('supplier')} className="w-full text-left p-6 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all focus:outline-none focus:ring-2 focus:ring-green-500">
-          <div className="flex items-center"><Store className="w-12 h-12 text-green-600 mr-4" /><div><h3 className="font-semibold text-lg">Supplier</h3><p className="text-gray-600 text-sm">Sell products to local vendors</p></div></div>
+
+        <button 
+          onClick={() => setUserType('supplier')} 
+          className="glass-card"
+        >
+          <div className="glass-effect"></div>
+          <div className="glass-tint"></div>
+          <div className="glass-shine"></div>
+          <div className="glass-content">
+            <div className="glass-text">
+              <Store className="icon" /> Supplier
+            </div>
+            <div className="glass-description">
+              Sell products to local vendors
+            </div>
+          </div>
         </button>
       </div>
+      
+      <svg style={{ display: 'none' }}>
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="1" seed="5" result="turbulence" />
+          <feComponentTransfer in="turbulence" result="mapped">
+            <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5" />
+            <feFuncG type="gamma" amplitude="0" exponent="1" offset="0" />
+            <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5" />
+          </feComponentTransfer>
+          <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap" />
+          <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100"
+            lighting-color="white" result="specLight">
+            <fePointLight x="-200" y="-200" z="300" />
+          </feSpecularLighting>
+          <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage" />
+          <feDisplacementMap in="SourceGraphic" in2="softMap" scale="150" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
     </div>
   );
 
-  const LoginForm = () => (
-    <div>
-      <div className="flex items-center mb-6"><button onClick={() => setUserType('')} className="p-2 rounded-full hover:bg-gray-100 mr-2"><ArrowLeft className="w-5 h-5" /></button><h2 className="text-xl font-semibold">{userType === 'vendor' ? 'Vendor Login' : 'Supplier Login'}</h2></div>
-      <form className="space-y-4" onSubmit={handleLogin}>
-        <div><label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label><input type="tel" value={loginData.phone} onChange={(e) => setLoginData({...loginData, phone: e.target.value})} placeholder="Enter your phone number" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500" required /></div>
-        <div><label className="block text-sm font-medium text-gray-700 mb-2">Password</label><div className="relative"><input type={showPassword ? 'text' : 'password'} value={loginData.password} onChange={(e) => setLoginData({...loginData, password: e.target.value})} placeholder="Enter your password" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 pr-12" required /><button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button></div></div>
-        <button type="submit" className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">Login as {userType === 'vendor' ? 'Vendor' : 'Supplier'}</button>
-        <div className="text-center"><a href="#" className="text-sm text-green-600 hover:underline">Forgot Password?</a></div>
-        <div className="text-center pt-4 border-t"><p className="text-sm text-gray-600">Don't have an account?{' '}<a href="#" className="text-green-600 font-medium hover:underline">Sign up</a></p></div>
-      </form>
-    </div>
-  );
+  const LoginForm = () => {
+    // Track focus state
+    const handleFocus = (field: 'phone' | 'password') => {
+      lastFocusedFieldRef.current = field;
+    };
+
+    // Restore focus after state updates
+    useEffect(() => {
+      if (lastFocusedFieldRef.current) {
+        const ref = lastFocusedFieldRef.current === 'phone' 
+          ? phoneInputRef 
+          : passwordInputRef;
+        
+        if (ref.current) {
+          ref.current.focus();
+          // Move cursor to end of input
+          const length = ref.current.value.length;
+          ref.current.setSelectionRange(length, length);
+        }
+      }
+    }, [loginData]);
+
+    return (
+      <div className="form-container">
+        <div className="form-card">
+          <div className="glass-effect"></div>
+          <div className="glass-tint"></div>
+          <div className="glass-shine"></div>
+          <div className="glass-content">
+            <div className="form-header">
+              <button 
+                onClick={() => setUserType('')} 
+                className="back-button"
+                type="button"
+              >
+                <ArrowLeft className="icon" />
+              </button>
+              <h2>
+                {userType === 'vendor' ? 'Vendor Login' : 'Supplier Login'}
+              </h2>
+            </div>
+            
+            <form onSubmit={handleLogin} className="auth-form" noValidate>
+              <div className="form-group">
+                <label>Phone Number</label>
+                <input 
+                  ref={phoneInputRef}
+                  type="tel" 
+                  name="phone"
+                  value={loginData.phone}
+                  onChange={handleInputChange}
+                  onFocus={() => handleFocus('phone')}
+                  placeholder="Enter 10 digit phone number"
+                  pattern="\d{10}"
+                  maxLength={10}
+                  required 
+                  className={errors.phone ? 'error' : ''}
+                />
+                {errors.phone && <span className="error-message">{errors.phone}</span>}
+              </div>
+              
+              <div className="form-group">
+                <label>Password</label>
+                <div className="password-input">
+                  <input 
+                    ref={passwordInputRef}
+                    type={showPassword ? 'text' : 'password'} 
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleInputChange}
+                    onFocus={() => handleFocus('password')}
+                    placeholder="Enter at least 10 characters"
+                    minLength={10}
+                    required 
+                    className={errors.password ? 'error' : ''}
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="toggle-password"
+                  >
+                    {showPassword ? <EyeOff className="icon" /> : <Eye className="icon" />}
+                  </button>
+                </div>
+                {errors.password && <span className="error-message">{errors.password}</span>}
+              </div>
+
+              <button 
+                type="submit" 
+                className="submit-button"
+                disabled={!isFormValid}
+              >
+                Login as {userType === 'vendor' ? 'Vendor' : 'Supplier'}
+              </button>
+
+              <div className="form-footer">
+                <a href="#" className="forgot-password">
+                  Forgot Password?
+                </a>
+                <div className="signup-link">
+                  <p>
+                    Don't have an account?{' '}
+                    <a href="#">Sign up</a>
+                  </p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center p-4"><div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md"><div className="text-center mb-8"><div className="flex justify-center mb-4"><Store className="w-16 h-16 text-green-600" /></div><h1 className="text-2xl font-bold text-gray-900 mb-2">LocalMart</h1><p className="text-gray-600">Hyperlocal B2B Marketplace</p></div>{!userType ? <UserTypeSelection /> : <LoginForm />}</div></div>
+    <div ref={containerRef} className="login-screen">
+      {!userType ? <UserTypeSelection /> : <LoginForm />}
+    </div>
   );
 };
 
