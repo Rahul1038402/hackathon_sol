@@ -288,13 +288,28 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ userType, setUserType, setCur
               </button>
 
               <div className="form-footer">
-                <a href="#" className="forgot-password">
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setCurrentScreen('forgot-password');
+                  }}
+                  className="forgot-password"
+                >
                   Forgot Password?
                 </a>
                 <div className="signup-link">
                   <p>
                     Don't have an account?{' '}
-                    <a href="#">Sign up</a>
+                    <a 
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCurrentScreen('signup');
+                      }}
+                    >
+                      Sign up
+                    </a>
                   </p>
                 </div>
               </div>

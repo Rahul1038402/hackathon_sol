@@ -387,3 +387,358 @@
     font-size: 1.5rem;
   }
 }
+
+/* ==============================================
+   SIGNUP AND FORGOT PASSWORD SPECIFIC STYLES
+   ============================================== */
+
+/* Signup screen specific adjustments */
+.signup-screen {
+  justify-content: center;
+  padding: 1rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+/* Hide any background content on signup screen */
+.signup-screen .main-title,
+.signup-screen .role-title,
+.signup-screen .selection-container {
+  display: none !important;
+}
+
+/* Two-column layout for signup */
+.signup-two-column-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.signup-form-full {
+  display: contents;
+}
+
+.signup-left-column,
+.signup-right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-left-column .form-card,
+.signup-right-column .form-card {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.signup-left-column .form-section,
+.signup-right-column .form-section {
+  margin-bottom: 1.5rem;
+}
+
+.signup-left-column .form-section:last-child,
+.signup-right-column .form-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Compact form groups for signup */
+.signup-screen .form-group {
+  margin-bottom: 1rem;
+}
+
+.signup-screen .section-title {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Centered header title for signup */
+.signup-header-title {
+  text-align: center;
+  flex: 1;
+  margin: 0;
+  padding-right: 2rem; /* Balance the back button space */
+}
+
+/* Label positioning for signup */
+.signup-screen .form-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  min-width: 120px;
+}
+
+.signup-screen .input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signup-screen .input-with-icon {
+  flex: 1;
+}
+
+/* Hide scrollbars */
+.signup-left-column .form-card::-webkit-scrollbar,
+.signup-right-column .form-card::-webkit-scrollbar {
+  width: 4px;
+}
+
+.signup-left-column .form-card::-webkit-scrollbar-track,
+.signup-right-column .form-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.signup-left-column .form-card::-webkit-scrollbar-thumb,
+.signup-right-column .form-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* Responsive design for signup */
+@media (max-width: 1024px) {
+  .signup-two-column-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-height: none;
+  }
+  
+  .signup-left-column .form-card,
+  .signup-right-column .form-card {
+    max-height: none;
+  }
+}
+
+/* Forgot password screen specific adjustments */
+.forgot-password-screen {
+  justify-content: center;
+}
+
+/* Enhanced subtitle styling */
+.subtitle {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+/* Form sections for signup */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+}
+
+/* Input with icon styling */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+.input-with-icon input {
+  padding-left: 3rem !important;
+}
+
+/* Signup form content */
+.signup-form-content {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.signup-form-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.signup-form-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.signup-form-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.signup-form-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Checkbox styling */
+.checkbox-group {
+  margin: 1.5rem 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.checkbox-label input[type="checkbox"] {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.25rem;
+  background: transparent;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: bold;
+}
+
+/* Link styling */
+.link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: white;
+}
+
+/* Form help text */
+.form-help-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+/* OTP specific styles */
+.otp-footer {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.resend-otp-button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.resend-otp-button:hover {
+  color: white;
+}
+
+.otp-timer {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Success container */
+.success-container {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.success-icon {
+  width: 4rem;
+  height: 4rem;
+  background: rgba(74, 222, 128, 0.2);
+  border: 2px solid rgba(74, 222, 128, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-icon .icon {
+  width: 2rem;
+  height: 2rem;
+  color: rgba(74, 222, 128, 1);
+}
+
+.success-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.success-container p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+/* Responsive adjustments for new screens */
+@media (max-width: 768px) {
+  .signup-screen,
+  .forgot-password-screen {
+    padding-top: 1rem;
+  }
+  
+  .form-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .signup-form-content {
+    max-height: 60vh;
+  }
+  
+  .otp-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
