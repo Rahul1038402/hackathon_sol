@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Store, User as UserIcon, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import './LoginScreen.css';
+import API from "../../services/api";
 
 interface LoginScreenProps {
   userType: string;
@@ -20,10 +21,26 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ userType, setUserType, setCur
   const lightRef = useRef<HTMLDivElement>(null);
   const lastFocusedFieldRef = useRef<'phone' | 'password' | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isFormValid) {
+  
+    if (!isFormValid) return;
+  
+    try {
+      const res = await API.post("/auth/login", {
+        phone: loginData.phone,
+        password: loginData.password,
+      });
+  
+      const { token } = res.data;
+  
+      localStorage.setItem("token", token); // Store token
+  
+      // Navigate to dashboard
       setCurrentScreen(`${userType}-dashboard`);
+    } catch (error: any) {
+      const msg = error?.response?.data?.message || "Login failed";
+      alert(msg);
     }
   };
 
