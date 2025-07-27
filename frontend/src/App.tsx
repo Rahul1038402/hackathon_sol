@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Import types, screens, and layout components
 // Note: In a real project, these would be standard imports. Here, the components
@@ -106,11 +106,15 @@ const App = () => {
         )}
       </main>
       
-      <DashboardNavigation 
-        userType={userType as "vendor" | "supplier"}
-        currentView={currentView}
-        setCurrentView={setCurrentView}
-      />
+
+      {userType && (
+        <DashboardNavigation 
+          userType={userType}
+          currentView={currentView}
+          setCurrentView={setCurrentView}
+        />
+      )}
+
     </div>
   );
 };
