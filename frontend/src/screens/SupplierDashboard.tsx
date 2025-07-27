@@ -88,7 +88,7 @@ const SupplierDashboard: React.FC<SupplierDashboardProps> = ({ userType, current
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Contact Number</span>
-                          <span className="text-sm font-medium">+91 99876-54321</span>
+                          <span className="text-sm font-medium">{contactNumber}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Email</span>
