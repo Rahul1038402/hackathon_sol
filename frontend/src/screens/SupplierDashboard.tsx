@@ -104,7 +104,7 @@ const SupplierDashboard: React.FC<SupplierDashboardProps> = ({ userType, current
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">GST Number</span>
-                          <span className="text-sm font-medium">27AABCU9603R1ZX</span>
+                          <span className="text-sm font-medium">{businessDetails.gstNumber}</span>
                         </div>
                       </div>
                     </div>
