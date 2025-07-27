@@ -88,11 +88,11 @@ const SupplierDashboard: React.FC<SupplierDashboardProps> = ({ userType, current
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Contact Number</span>
-                          <span className="text-sm font-medium">+91 99876-54321</span>
+                          <span className="text-sm font-medium">{contactNumber}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Email</span>
-                          <span className="text-sm font-medium">ram.supplies@gmail.com</span>
+                          <span className="text-sm font-medium">{props.email}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">Business Type</span>
@@ -104,7 +104,7 @@ const SupplierDashboard: React.FC<SupplierDashboardProps> = ({ userType, current
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-gray-600">GST Number</span>
-                          <span className="text-sm font-medium">27AABCU9603R1ZX</span>
+                          <span className="text-sm font-medium">{businessDetails.gstNumber}</span>
                         </div>
                       </div>
                     </div>

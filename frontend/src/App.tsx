@@ -9,7 +9,7 @@ import { ForgotPasswordScreen } from './screens/ForgotPasswordScreen';
 import { VendorDashboard } from './screens/VendorDashboard';
 import { SupplierDashboard } from './screens/SupplierDashboard';
 import { DashboardHeader } from './components/layout/DashboardHeader';
-import DashboardNavigation from './components/layout/DashboardNavigation';
+import  DashboardNavigation  from './components/layout/DashboardNavigation';
 import type { CartItem, Product } from './types';
 
 const App = () => {
@@ -106,6 +106,7 @@ const App = () => {
         )}
       </main>
       
+
       {userType && (
         <DashboardNavigation 
           userType={userType}
@@ -113,6 +114,7 @@ const App = () => {
           setCurrentView={setCurrentView}
         />
       )}
+
     </div>
   );
 };
