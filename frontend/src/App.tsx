@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 // Note: In a real project, these would be standard imports. Here, the components
 // are defined below in this same file for a self-contained example.
 import { LoginScreen } from './screens/LoginScreen';
+import { SignUpScreen } from './screens/SignUpScreen';
+import { ForgotPasswordScreen } from './screens/ForgotPasswordScreen';
 import { VendorDashboard } from './screens/VendorDashboard';
 import { SupplierDashboard } from './screens/SupplierDashboard';
 import { DashboardHeader } from './components/layout/DashboardHeader';
@@ -12,9 +14,9 @@ import type { CartItem, Product } from './types';
 
 const App = () => {
   // --- STATE MANAGEMENT ---
-  const [currentScreen, setCurrentScreen] = useState('login'); // 'login', 'vendor-dashboard', 'supplier-dashboard'
+  const [currentScreen, setCurrentScreen] = useState('login'); // 'login', 'signup', 'forgot-password', 'vendor-dashboard', 'supplier-dashboard'
   const [currentView, setCurrentView] = useState('home');
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState<'vendor' | 'supplier' | ''>('');
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // --- HANDLER FUNCTIONS ---
@@ -47,12 +49,29 @@ const App = () => {
 
   // --- RENDER LOGIC ---
 
-  // Show the login screen if no user is "logged in"
+  // Show the appropriate screen based on current state
   if (currentScreen === 'login') {
     return (
       <LoginScreen 
         userType={userType}
         setUserType={setUserType}
+        setCurrentScreen={setCurrentScreen}
+      />
+    );
+  }
+
+  if (currentScreen === 'signup') {
+    return (
+      <SignUpScreen 
+        userType={userType}
+        setCurrentScreen={setCurrentScreen}
+      />
+    );
+  }
+
+  if (currentScreen === 'forgot-password') {
+    return (
+      <ForgotPasswordScreen 
         setCurrentScreen={setCurrentScreen}
       />
     );
@@ -69,7 +88,7 @@ const App = () => {
       />
       
       <main className="pt-4 pb-24"> {/* Padding for header and nav */}
-        {currentScreen === 'vendor-dashboard' && (
+        {currentScreen === 'vendor-dashboard' && userType && (
           <VendorDashboard 
             userType={userType}
             currentView={currentView}
@@ -78,7 +97,7 @@ const App = () => {
             addToCart={addToCart}
           />
         )}
-        {currentScreen === 'supplier-dashboard' && (
+        {currentScreen === 'supplier-dashboard' && userType && (
           <SupplierDashboard 
             userType={userType}
             currentView={currentView}
