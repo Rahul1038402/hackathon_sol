@@ -7,7 +7,7 @@ import { LoginScreen } from './screens/LoginScreen';
 import { VendorDashboard } from './screens/VendorDashboard';
 import { SupplierDashboard } from './screens/SupplierDashboard';
 import { DashboardHeader } from './components/layout/DashboardHeader';
-import DashboardNavigation from './components/layout/DashboardNavigation';
+import  DashboardNavigation  from './components/layout/DashboardNavigation';
 import type { CartItem, Product } from './types';
 
 const App = () => {
@@ -88,7 +88,7 @@ const App = () => {
       </main>
       
       <DashboardNavigation 
-        userType={userType}
+        userType={userType as "vendor" | "supplier"}
         currentView={currentView}
         setCurrentView={setCurrentView}
       />
