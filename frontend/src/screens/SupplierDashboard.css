@@ -1,0 +1,405 @@
+/* ==============================================
+   SUPPLIER DASHBOARD CUSTOMIZATION STYLES
+   ============================================== */
+
+/* Dashboard Container */
+.supplier-dashboard-container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+/* ==============================================
+   HOME SECTION STYLES
+   ============================================== */
+
+/* Stats Grid Container */
+.stats-grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Quick Actions Container */
+.quick-actions-container {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.quick-action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.quick-action-button:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================================
+   PRODUCTS SECTION STYLES
+   ============================================== */
+
+/* Products Header Container */
+.products-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.add-product-button {
+  background-color: #16a34a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.add-product-button:hover {
+  background-color: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Products List Container */
+.products-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ==============================================
+   PROFILE SECTION STYLES
+   ============================================== */
+
+/* Profile Main Container */
+.profile-main-container {
+  padding: 1rem;
+}
+
+/* Profile Header Card */
+.profile-header-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.edit-profile-button {
+  color: #16a34a;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-profile-button:hover {
+  text-decoration: underline;
+  color: #15803d;
+}
+
+/* Profile Avatar Section */
+.profile-avatar-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.profile-avatar {
+  width: 4rem;
+  height: 4rem;
+  background-color: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.profile-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.profile-verification {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  color: #16a34a;
+}
+
+/* Business Details Card */
+.business-details-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.business-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.business-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.business-detail-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.business-detail-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Customization Cards */
+.customization-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.customization-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.customization-option-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.customization-option-button:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  transform: translateX(2px);
+}
+
+.customization-option-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.customization-option-text {
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.customization-option-arrow {
+  color: #9ca3af;
+  font-size: 1.25rem;
+}
+
+/* Account Settings */
+.account-settings-card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.account-settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.account-setting-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: #374151;
+}
+
+.account-setting-button:hover {
+  background-color: #f9fafb;
+  transform: translateX(2px);
+}
+
+.account-setting-button.danger {
+  color: #dc2626;
+}
+
+.account-setting-button.danger:hover {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.account-setting-button.danger .customization-option-arrow {
+  color: #fca5a5;
+}
+
+/* ==============================================
+   ANALYTICS SECTION STYLES
+   ============================================== */
+
+.analytics-container {
+  padding: 1rem;
+}
+
+.analytics-placeholder {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-icon {
+  width: 4rem;
+  height: 4rem;
+  color: #d1d5db;
+  margin: 0 auto 1rem;
+}
+
+.analytics-text {
+  color: #6b7280;
+}
+
+/* ==============================================
+   RESPONSIVE DESIGN
+   ============================================== */
+
+@media (max-width: 768px) {
+  .stats-grid-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .products-header-container {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .profile-avatar-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .business-detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* ==============================================
+   UTILITY CLASSES
+   ============================================== */
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.text-muted {
+  color: #6b7280;
+}
+
+.text-success {
+  color: #16a34a;
+}
+
+.text-danger {
+  color: #dc2626;
+}
+
+.icon-small {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.icon-medium {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon-large {
+  width: 2rem;
+  height: 2rem;
+}
