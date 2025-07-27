@@ -74,7 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(135, 68, 68, 0.8);
+  color: var(--nav-icon-button-color);
   transition: all 0.6s ease;
   background: transparent;
   border: none;
